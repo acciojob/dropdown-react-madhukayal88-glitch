@@ -37,7 +37,6 @@ h1 {
   font-size: 1rem;
 }
 
-/* Dropdown Container */
 .dropdown-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -65,11 +64,6 @@ h1 {
   background: #f7fafc;
   cursor: pointer;
   transition: all 0.3s ease;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a5568' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  padding-right: 2.5rem;
 }
 
 .dropdown-group select:focus {
@@ -79,11 +73,6 @@ h1 {
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.dropdown-group select:hover {
-  border-color: #667eea;
-}
-
-/* Info Container */
 .info-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -128,20 +117,19 @@ h1 {
   font-weight: 700;
 }
 
-.info-name {
+#state-name, #city-name, #landmark-name {
   font-size: 1.1rem;
   font-weight: 700;
   color: #1a1a2e;
   margin-bottom: 0.3rem;
 }
 
-.info-description {
+#state-description, #city-description, #landmark-description {
   font-size: 0.85rem;
   color: #4a5568;
   line-height: 1.5;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   body {
     padding: 1rem;
@@ -166,7 +154,6 @@ h1 {
   }
 }
 
-/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
