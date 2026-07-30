@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-// Data structure for State, City, and Landmark
+// Data structure
 const data = {
   states: [
     {
@@ -107,47 +107,59 @@ const data = {
 };
 
 function App() {
-  // State for selected values
-  const [selectedState, setSelectedState] = useState(0);
-  const [selectedCity, setSelectedCity] = useState(0);
-  const [selectedLandmark, setSelectedLandmark] = useState(0);
+  // State for selected indices
+  const [selectedStateIdx, setSelectedStateIdx] = useState(0);
+  const [selectedCityIdx, setSelectedCityIdx] = useState(0);
+  const [selectedLandmarkIdx, setSelectedLandmarkIdx] = useState(0);
 
-  // Get the selected state, city, and landmark objects
-  const stateData = data.states[selectedState];
-  const cityData = stateData.cities[selectedCity];
-  const landmarkData = cityData.landmarks[selectedLandmark];
+  // Get current selections
+  const currentState = data.states[selectedStateIdx];
+  const currentCity = currentState.cities[selectedCityIdx];
+  const currentLandmark = currentCity.landmarks[selectedLandmarkIdx];
 
   // Handle State change
   const handleStateChange = (e) => {
-    const stateIndex = parseInt(e.target.value);
-    setSelectedState(stateIndex);
-    setSelectedCity(0); // Reset city to first
-    setSelectedLandmark(0); // Reset landmark to first
+    const idx = parseInt(e.target.value);
+    setSelectedStateIdx(idx);
+    setSelectedCityIdx(0); // Reset to first city
+    setSelectedLandmarkIdx(0); // Reset to first landmark
   };
 
   // Handle City change
   const handleCityChange = (e) => {
-    const cityIndex = parseInt(e.target.value);
-    setSelectedCity(cityIndex);
-    setSelectedLandmark(0); // Reset landmark to first
+    const idx = parseInt(e.target.value);
+    setSelectedCityIdx(idx);
+    setSelectedLandmarkIdx(0); // Reset to first landmark
   };
 
   // Handle Landmark change
   const handleLandmarkChange = (e) => {
-    const landmarkIndex = parseInt(e.target.value);
-    setSelectedLandmark(landmarkIndex);
+    const idx = parseInt(e.target.value);
+    setSelectedLandmarkIdx(idx);
   };
+
+  // Auto-select first item on mount
+  useEffect(() => {
+    setSelectedStateIdx(0);
+    setSelectedCityIdx(0);
+    setSelectedLandmarkIdx(0);
+  }, []);
 
   return (
     <div className="app-container">
       <h1>📍 Dropdown Explorer</h1>
-      <p className="subtitle">Select State → City → Landmark to explore</p>
+      <p className="subtitle">Select a State → City → Landmark to explore</p>
 
+      {/* Dropdown Container */}
       <div className="dropdown-container">
-        {/* State Dropdown */}
+        {/* State Dropdown - id="state" */}
         <div className="dropdown-group">
           <label htmlFor="state">Select State:</label>
-          <select id="state" value={selectedState} onChange={handleStateChange}>
+          <select 
+            id="state" 
+            value={selectedStateIdx} 
+            onChange={handleStateChange}
+          >
             {data.states.map((state, index) => (
               <option key={index} value={index}>
                 {state.name}
@@ -156,11 +168,15 @@ function App() {
           </select>
         </div>
 
-        {/* City Dropdown */}
+        {/* City Dropdown - id="city" */}
         <div className="dropdown-group">
           <label htmlFor="city">Select City:</label>
-          <select id="city" value={selectedCity} onChange={handleCityChange}>
-            {stateData.cities.map((city, index) => (
+          <select 
+            id="city" 
+            value={selectedCityIdx} 
+            onChange={handleCityChange}
+          >
+            {currentState.cities.map((city, index) => (
               <option key={index} value={index}>
                 {city.name}
               </option>
@@ -168,11 +184,15 @@ function App() {
           </select>
         </div>
 
-        {/* Landmark Dropdown */}
+        {/* Landmark Dropdown - id="landmark" */}
         <div className="dropdown-group">
           <label htmlFor="landmark">Select Landmark:</label>
-          <select id="landmark" value={selectedLandmark} onChange={handleLandmarkChange}>
-            {cityData.landmarks.map((landmark, index) => (
+          <select 
+            id="landmark" 
+            value={selectedLandmarkIdx} 
+            onChange={handleLandmarkChange}
+          >
+            {currentCity.landmarks.map((landmark, index) => (
               <option key={index} value={index}>
                 {landmark.name}
               </option>
@@ -181,27 +201,27 @@ function App() {
         </div>
       </div>
 
-      {/* Display Selected Information */}
+      {/* Information Display Section */}
       <div className="info-container">
         {/* State Info */}
-        <div className="info-card">
-          <h3>State</h3>
-          <div id="state-name" className="info-name">{stateData.name}</div>
-          <div id="state-description" className="info-description">{stateData.description}</div>
+        <div className="info-card state-card">
+          <h3>🏛️ State</h3>
+          <div id="state-name" className="info-name">{currentState.name}</div>
+          <div id="state-description" className="info-description">{currentState.description}</div>
         </div>
 
         {/* City Info */}
-        <div className="info-card">
-          <h3>City</h3>
-          <div id="city-name" className="info-name">{cityData.name}</div>
-          <div id="city-description" className="info-description">{cityData.description}</div>
+        <div className="info-card city-card">
+          <h3>🏙️ City</h3>
+          <div id="city-name" className="info-name">{currentCity.name}</div>
+          <div id="city-description" className="info-description">{currentCity.description}</div>
         </div>
 
         {/* Landmark Info */}
-        <div className="info-card">
-          <h3>Landmark</h3>
-          <div id="landmark-name" className="info-name">{landmarkData.name}</div>
-          <div id="landmark-description" className="info-description">{landmarkData.description}</div>
+        <div className="info-card landmark-card">
+          <h3>🗺️ Landmark</h3>
+          <div id="landmark-name" className="info-name">{currentLandmark.name}</div>
+          <div id="landmark-description" className="info-description">{currentLandmark.description}</div>
         </div>
       </div>
     </div>
