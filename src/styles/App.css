@@ -15,7 +15,7 @@ body {
 }
 
 .app-container {
-  max-width: 800px;
+  max-width: 900px;
   width: 100%;
   background: white;
   padding: 2.5rem;
@@ -40,7 +40,7 @@ h1 {
 /* Dropdown Container */
 .dropdown-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -69,6 +69,7 @@ h1 {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a5568' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
+  padding-right: 2.5rem;
 }
 
 .dropdown-group select:focus {
@@ -85,17 +86,17 @@ h1 {
 /* Info Container */
 .info-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
 .info-card {
-  background: #f8f9fa;
   padding: 1.2rem;
   border-radius: 0.8rem;
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
+  min-height: 150px;
 }
 
 .info-card:hover {
@@ -103,12 +104,28 @@ h1 {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
+.state-card {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+}
+
+.city-card {
+  background: linear-gradient(135deg, #dbeafe, #93c5fd);
+  border-color: #3b82f6;
+}
+
+.landmark-card {
+  background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+  border-color: #10b981;
+}
+
 .info-card h3 {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #a0aec0;
+  color: #4a5568;
   margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
 .info-name {
@@ -119,7 +136,7 @@ h1 {
 }
 
 .info-description {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #4a5568;
   line-height: 1.5;
 }
@@ -147,4 +164,20 @@ h1 {
   h1 {
     font-size: 1.5rem;
   }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.info-card {
+  animation: fadeIn 0.3s ease;
 }
