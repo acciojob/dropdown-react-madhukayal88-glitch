@@ -121,15 +121,15 @@ function App() {
   const handleStateChange = (e) => {
     const idx = parseInt(e.target.value);
     setSelectedStateIdx(idx);
-    setSelectedCityIdx(0); // Reset to first city
-    setSelectedLandmarkIdx(0); // Reset to first landmark
+    setSelectedCityIdx(0);
+    setSelectedLandmarkIdx(0);
   };
 
   // Handle City change
   const handleCityChange = (e) => {
     const idx = parseInt(e.target.value);
     setSelectedCityIdx(idx);
-    setSelectedLandmarkIdx(0); // Reset to first landmark
+    setSelectedLandmarkIdx(0);
   };
 
   // Handle Landmark change
@@ -138,90 +138,59 @@ function App() {
     setSelectedLandmarkIdx(idx);
   };
 
-  // Auto-select first item on mount
-  useEffect(() => {
-    setSelectedStateIdx(0);
-    setSelectedCityIdx(0);
-    setSelectedLandmarkIdx(0);
-  }, []);
-
   return (
     <div className="app-container">
       <h1>📍 Dropdown Explorer</h1>
       <p className="subtitle">Select a State → City → Landmark to explore</p>
 
-      {/* Dropdown Container */}
+      {/* Dropdowns with required IDs */}
       <div className="dropdown-container">
-        {/* State Dropdown - id="state" */}
         <div className="dropdown-group">
-          <label htmlFor="state">Select State:</label>
-          <select 
-            id="state" 
-            value={selectedStateIdx} 
-            onChange={handleStateChange}
-          >
+          <label htmlFor="state">State:</label>
+          <select id="state" value={selectedStateIdx} onChange={handleStateChange}>
             {data.states.map((state, index) => (
-              <option key={index} value={index}>
-                {state.name}
-              </option>
+              <option key={index} value={index}>{state.name}</option>
             ))}
           </select>
         </div>
 
-        {/* City Dropdown - id="city" */}
         <div className="dropdown-group">
-          <label htmlFor="city">Select City:</label>
-          <select 
-            id="city" 
-            value={selectedCityIdx} 
-            onChange={handleCityChange}
-          >
+          <label htmlFor="city">City:</label>
+          <select id="city" value={selectedCityIdx} onChange={handleCityChange}>
             {currentState.cities.map((city, index) => (
-              <option key={index} value={index}>
-                {city.name}
-              </option>
+              <option key={index} value={index}>{city.name}</option>
             ))}
           </select>
         </div>
 
-        {/* Landmark Dropdown - id="landmark" */}
         <div className="dropdown-group">
-          <label htmlFor="landmark">Select Landmark:</label>
-          <select 
-            id="landmark" 
-            value={selectedLandmarkIdx} 
-            onChange={handleLandmarkChange}
-          >
+          <label htmlFor="landmark">Landmark:</label>
+          <select id="landmark" value={selectedLandmarkIdx} onChange={handleLandmarkChange}>
             {currentCity.landmarks.map((landmark, index) => (
-              <option key={index} value={index}>
-                {landmark.name}
-              </option>
+              <option key={index} value={index}>{landmark.name}</option>
             ))}
           </select>
         </div>
       </div>
 
-      {/* Information Display Section */}
+      {/* Information Display with required IDs */}
       <div className="info-container">
-        {/* State Info */}
         <div className="info-card state-card">
           <h3>🏛️ State</h3>
-          <div id="state-name" className="info-name">{currentState.name}</div>
-          <div id="state-description" className="info-description">{currentState.description}</div>
+          <div id="state-name">{currentState.name}</div>
+          <div id="state-description">{currentState.description}</div>
         </div>
 
-        {/* City Info */}
         <div className="info-card city-card">
           <h3>🏙️ City</h3>
-          <div id="city-name" className="info-name">{currentCity.name}</div>
-          <div id="city-description" className="info-description">{currentCity.description}</div>
+          <div id="city-name">{currentCity.name}</div>
+          <div id="city-description">{currentCity.description}</div>
         </div>
 
-        {/* Landmark Info */}
         <div className="info-card landmark-card">
           <h3>🗺️ Landmark</h3>
-          <div id="landmark-name" className="info-name">{currentLandmark.name}</div>
-          <div id="landmark-description" className="info-description">{currentLandmark.description}</div>
+          <div id="landmark-name">{currentLandmark.name}</div>
+          <div id="landmark-description">{currentLandmark.description}</div>
         </div>
       </div>
     </div>
